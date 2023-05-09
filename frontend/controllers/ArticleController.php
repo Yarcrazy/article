@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\form\Form;
 use common\models\Article;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -148,6 +149,9 @@ class ArticleController extends Controller
         if (Yii::$app->request->isPost) {
             throw new MethodNotAllowedHttpException();
         }
-
+        $model = new Form();
+        if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
+            throw new \Exception('Bad arguments');
+        }
     }
 }
